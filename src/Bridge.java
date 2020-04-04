@@ -11,29 +11,30 @@ public class Bridge {
     }
 
     public void cross_bridge_and_get_gold(Person person) throws InterruptedException {
-        while (!this.bridge_is_free()){
 
-        }
+        if(person.bridge.number_of_gold > 0){
+            while (!this.bridge_is_free()){
 
-        person.door.stop_holding_gate();
-        mutex.acquire();
-
-        if(this.number_of_gold > 0){
-            this.number_of_gold--;
-            person.turn--;
-            person.setStatus("Get Gold");
-            sleep(5000);
+            }
+            this.mutex.acquire();
+            person.door.stop_holding_gate();
+            if(this.number_of_gold > 0){
+                this.number_of_gold--;
+                person.turn--;
+                person.setStatus("Get Gold            ");
+                sleep(500);
+            }else{
+                person.setStatus("On bridge + not gold");
+            }
+            go_out();
         }else{
-            person.setStatus("On bridge but not gold");
-            sleep(2000);
+            person.door.stop_holding_gate();
         }
-
-        go_out();
-        person.setStatus("Đợi");
+        person.setStatus("Đợi                 ");
     }
 
     public void go_out(){
-        mutex.release();
+        this.mutex.release();
     }
 
     boolean bridge_is_free(){

@@ -27,16 +27,20 @@ public class index {
         }
         while (!all_stop(persons)){
             for(int i=0; i<number_of_person; i++){
-                System.out.println("Person number : " + i + " Status: " + persons[i].status + " Turn " + persons[i].turn);
+                System.out.println("Person number : " + i + "        Status: " + persons[i].status + "             Số turn còn lại:  " + persons[i].turn);
             }
             System.out.println("-----------------------------------------------------");
             sleep(1000);
         }
+        for(int i=0; i<number_of_person; i++){
+            System.out.println("Person number : " + persons[i].person_number + " lấy được " + (turn - persons[i].turn));
+        }
+
     }
 
     public static boolean all_stop(Person[] persons){
         for(int i=0; i<persons.length; i++){
-            if(persons[i].status != "Stopped"){
+            if(persons[i].isAlive()){
                 return false;
             }
         }
