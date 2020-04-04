@@ -13,21 +13,33 @@ public class index {
         System.out.println("Enter number of gold");
         number_of_gold= myObj.nextInt();
 
+        int turn = number_of_gold / number_of_person + 1;
+
         Door door = new Door();
         Bridge bridge = new Bridge(number_of_gold);
-
         Person[] persons = new Person[number_of_person];
         for(int i=0; i<number_of_person; i++){
-            persons[i] = new Person(i, door, bridge);
+            persons[i] = new Person(i, turn, door, bridge);
+        }
+        door.setPersons(persons);
+        for(int i=0; i<number_of_person; i++){
             persons[i].start();
         }
-
-        while (true){
+        while (!all_stop(persons)){
             for(int i=0; i<number_of_person; i++){
-                System.out.println("Person number : " + i + " in " + persons[i].status);
+                System.out.println("Person number : " + i + " Status: " + persons[i].status + " Turn " + persons[i].turn);
             }
             System.out.println("-----------------------------------------------------");
             sleep(1000);
         }
+    }
+
+    public static boolean all_stop(Person[] persons){
+        for(int i=0; i<persons.length; i++){
+            if(persons[i].status != "Stopped"){
+                return false;
+            }
+        }
+        return true;
     }
 }
